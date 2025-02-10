@@ -25,7 +25,13 @@ class _NewItemScreenState extends State<NewItemScreen> {
               label: Text("Name"),
             ),
             validator: (value) {
-              return 'Demo....';
+              if (value == null ||
+                  value.isEmpty ||
+                  value.trim().length <= 1 ||
+                  value.trim().length > 50) {
+                return "Must be between 1 and 50 charecters";
+              }
+              return null;
             },
           ),
           Row(
