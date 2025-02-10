@@ -14,7 +14,20 @@ class _NewItemScreenState extends State<NewItemScreen> {
       appBar: AppBar(
         title: Text("Add new item"),
       ),
-      body: Padding(padding: EdgeInsets.all(12), child: Text("The Form")),
+      body: Form(
+          child: Column(
+        children: [
+          TextFormField(
+            maxLength: 50,
+            decoration: InputDecoration(
+              label: Text("Name"),
+            ),
+            validator: (value) {
+              return 'Demo....';
+            },
+          )
+        ],
+      )),
     );
   }
 }
