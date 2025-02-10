@@ -1,6 +1,6 @@
 import 'package:shoping_list_app/data/categories.dart';
 import 'package:shoping_list_app/models/category.dart';
-import 'package:shoping_list_app/models/grocery_item';
+import 'package:shoping_list_app/models/grocery_item.dart';
 
 final groceryItems = [
   GroceryItem(
