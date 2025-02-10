@@ -58,7 +58,14 @@ class _NewItemScreenState extends State<NewItemScreen> {
                           ],
                         ))
                 ], onChanged: (value) {}),
-              )
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(onPressed: () {}, child: Text("Reset")),
+              ElevatedButton(onPressed: () {}, child: Text("Submited"))
             ],
           )
         ],
