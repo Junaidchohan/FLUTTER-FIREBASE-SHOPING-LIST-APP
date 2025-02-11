@@ -11,9 +11,16 @@ class NewItemScreen extends StatefulWidget {
 
 class _NewItemScreenState extends State<NewItemScreen> {
   final _formKey = GlobalKey<FormState>();
+  var _enteredName = "";
+  var _enteredQuantity = 1;
+  var _selectedCategory = categories[Categories.vegetables]!;
 
   void _saveItem() {
     _formKey.currentState!.validate();
+    _formKey.currentState!.save();
+    print(_enteredName);
+    print(_enteredQuantity);
+    print(_selectedCategory);
   }
 
   @override
@@ -40,6 +47,9 @@ class _NewItemScreenState extends State<NewItemScreen> {
                   }
                   return null;
                 },
+                onSaved: (value) {
+                  _enteredName = value!;
+                },
               ),
               Row(
                 children: [
@@ -47,7 +57,7 @@ class _NewItemScreenState extends State<NewItemScreen> {
                     child: TextFormField(
                       decoration: InputDecoration(label: Text("Quantity")),
                       keyboardType: TextInputType.number,
-                      initialValue: "1",
+                      initialValue: _enteredQuantity.toString(),
                       validator: (value) {
                         if (value == null ||
                             value.isEmpty ||
@@ -57,30 +67,40 @@ class _NewItemScreenState extends State<NewItemScreen> {
                         }
                         return null;
                       },
+                      onSaved: (value) {
+                        _enteredQuantity = int.parse(value!);
+                      },
                     ),
                   ),
                   SizedBox(
                     width: 8,
                   ),
                   Expanded(
-                    child: DropdownButtonFormField(items: [
-                      for (final Category in categories.entries)
-                        DropdownMenuItem(
-                            value: Category.value,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 16,
-                                  height: 16,
-                                  color: Category.value.color,
-                                ),
-                                SizedBox(
-                                  width: 6,
-                                ),
-                                Text(Category.value.title)
-                              ],
-                            ))
-                    ], onChanged: (value) {}),
+                    child: DropdownButtonFormField(
+                        value: _selectedCategory,
+                        items: [
+                          for (final Category in categories.entries)
+                            DropdownMenuItem(
+                                value: Category.value,
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 16,
+                                      height: 16,
+                                      color: Category.value.color,
+                                    ),
+                                    SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(Category.value.title)
+                                  ],
+                                ))
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedCategory = value!;
+                          });
+                        }),
                   ),
                 ],
               ),
