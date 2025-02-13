@@ -26,7 +26,8 @@ class _GroceryListState extends State<GroceryList> {
 
   void _loadItems() async {
     final url = Uri.https(
-        'flutter-prep-19e39-default-rtdb.firebaseio.com', 'shopping-list.json');
+        'flutter-shopping-list-ap-8abfb-default-rtdb.firebaseio.com',
+        'shopping-list.json');
     final response = await http.get(url);
 
     if (response.statusCode >= 400) {
@@ -35,6 +36,13 @@ class _GroceryListState extends State<GroceryList> {
       });
     }
 
+    // if (response.body == "null") {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    //   return;
+    // }
+    print(response.body);
     final Map<String, dynamic> listData = json.decode(response.body);
     final List<GroceryItem> loadedItems = [];
     for (final item in listData.entries) {
@@ -79,7 +87,8 @@ class _GroceryListState extends State<GroceryList> {
       _groceryItems.remove(item);
     });
 
-    final url = Uri.https('flutter-prep-19e39-default-rtdb.firebaseio.com',
+    final url = Uri.https(
+        'flutter-shopping-list-ap-8abfb-default-rtdb.firebaseio.com',
         'shopping-list/${item.id}.json');
     final response = await http.delete(url);
 
